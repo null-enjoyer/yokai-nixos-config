@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "YŌKAI browser search",
+  "version": "1.0.0",
+  "description": "Search Brave history from your YŌKAI desktop.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAytvPmtNQFdK3NAyljCPfE3xbulUmUSy2TqOrM751NqAG2kejx1r4f3ksIYfXMqdXqKQ6usGmz3GYAcPfUPWlJKBHL2Jca5dSHJjHZ9LhhYMJs5XiweA2wpceAKUEdrjFB1deXjcsZ1Wl9r3xl9b9Li6xsKQ9q1NPY1c49bgBD9hJyf03pt1RNSwjYe66rdaZlh8qaT3DJ9UVFFMdeTAaerX1g3jbXcX59OZGUIBqO0PahoJgzGmdF2b37EioJ2orwgbQ1mzO0TVIAGigZZKGRuhsjaoeVQBzsRJr7koVbrnb6xoNf09KRN0r1Sk5W8ZsnOV42xxrhdO5F8NrYk6c/wIDAQAB",
+  "permissions": [
+    "history",
+    "nativeMessaging",
+    "storage",
+    "alarms"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "action": {
+    "default_title": "YŌKAI browser search"
+  },
+  "icons": {
+    "128": "icon.png"
+  }
+}

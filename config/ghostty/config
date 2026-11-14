@@ -1,0 +1,28 @@
+# YŌKAI: black lacquer, warm ivory and a restrained vermilion accent.
+font-family = JetBrains Mono
+font-size = 12
+background = #09090B
+foreground = #F0EDE6
+cursor-color = #D92B3A
+cursor-text = #09090B
+selection-background = #681723
+selection-foreground = #F0EDE6
+
+# Hyprland owns window borders and movement.
+window-decoration = none
+window-padding-x = 0
+window-padding-y = 0
+window-theme = dark
+gtk-titlebar = false
+gtk-tabs-location = top
+gtk-toolbar-style = flat
+gtk-wide-tabs = false
+gtk-single-instance = false
+mouse-hide-while-typing = true
+keybind = ctrl+shift+w=close_surface
+keybind = ctrl+enter=unbind
+# Horizontal navigation uses the packaged split-to-tab fallback.
+keybind = ctrl+shift+left=goto_split:left
+keybind = ctrl+shift+right=goto_split:right
+keybind = ctrl+alt+left=unbind
+keybind = ctrl+alt+right=unbind

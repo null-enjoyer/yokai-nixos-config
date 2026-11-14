@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YŌKAI browser search</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <main>
+        <img src="icon.png" alt="" width="64" height="64">
+        <p class="eyebrow">YŌKAI</p>
+        <h1>Browser search</h1>
+        <p>Find visited websites from your desktop. Choose this window’s Brave profile so pages open in the right account.</p>
+        <form id="settings">
+            <label for="profile">Browser profile</label>
+            <select id="profile" required><option value="">Loading profiles…</option></select>
+            <button id="connect" type="submit" disabled>Connect history</button>
+        </form>
+        <p id="status" role="status" aria-live="polite">Connecting to YŌKAI…</p>
+        <button id="refresh" class="secondary" type="button">Refresh history</button>
+    </main>
+    <script src="options.js"></script>
+</body>
+</html>

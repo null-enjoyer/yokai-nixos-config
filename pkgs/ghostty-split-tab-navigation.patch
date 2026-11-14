@@ -1,0 +1,91 @@
+diff --git a/src/apprt/gtk/class/application.zig b/src/apprt/gtk/class/application.zig
+--- a/src/apprt/gtk/class/application.zig
++++ b/src/apprt/gtk/class/application.zig
+@@ -1994,14 +1994,21 @@
+                     return false;
+                 };
+
+-                return tree.goto(switch (to) {
++                if (tree.goto(switch (to) {
+                     .previous => .previous_wrapped,
+                     .next => .next_wrapped,
+                     .up => .{ .spatial = .up },
+                     .down => .{ .spatial = .down },
+-                    .left => .{ .spatial = .left },
+-                    .right => .{ .spatial = .right },
+-                });
++                    .left => .{ .spatial_no_wrap = .left },
++                    .right => .{ .spatial_no_wrap = .right },
++                })) return true;
++
++                // At a horizontal split edge, continue into the adjacent tab.
++                return switch (to) {
++                    .left => gotoTab(target, .previous),
++                    .right => gotoTab(target, .next),
++                    else => false,
++                };
+             },
+         }
+     }
+diff --git a/src/datastruct/split_tree.zig b/src/datastruct/split_tree.zig
+--- a/src/datastruct/split_tree.zig
++++ b/src/datastruct/split_tree.zig
+@@ -244,6 +244,9 @@
+             /// based on the nearest surface in the given direction visually
+             /// as the surfaces are laid out on a 2D grid.
+             spatial: Spatial.Direction,
++
++            /// A spatial direction that returns null at the outer edge.
++            spatial_no_wrap: Spatial.Direction,
+         };
+
+         /// Goto a view from a certain point in the split tree. Returns null
+@@ -266,6 +269,11 @@
+                     var sp = try self.spatial(alloc);
+                     defer sp.deinit(alloc);
+                     break :spatial self.nearestWrapped(sp, from, d);
++                },
++                .spatial_no_wrap => |d| spatial: {
++                    var sp = try self.spatial(alloc);
++                    defer sp.deinit(alloc);
++                    break :spatial self.nearest(sp, from, d, sp.slots[from.idx()]);
+                 },
+             };
+         }
+@@ -1896,6 +1904,36 @@
+     }
+ }
+
++test "SplitTree: spatial navigation preserves tab fallback at horizontal edges" {
++    const testing = std.testing;
++    const alloc = testing.allocator;
++
++    var left_view: TestTree.View = .{ .label = "left" };
++    var left_tree: TestTree = try .init(alloc, &left_view);
++    defer left_tree.deinit();
++    var right_view: TestTree.View = .{ .label = "right" };
++    var right_tree: TestTree = try .init(alloc, &right_view);
++    defer right_tree.deinit();
++    var split = try left_tree.split(alloc, .root, .right, 0.5, &right_tree);
++    defer split.deinit();
++    const left = split.nodes[0].split.left;
++    const right = split.nodes[0].split.right;
++
++    // Adjacent splits win, while either outer edge permits the tab fallback.
++    try testing.expectEqual(right, (try split.goto(alloc, left, .{ .spatial_no_wrap = .right })).?);
++    try testing.expectEqual(left, (try split.goto(alloc, right, .{ .spatial_no_wrap = .left })).?);
++    try testing.expectEqual(null, try split.goto(alloc, left, .{ .spatial_no_wrap = .left }));
++    try testing.expectEqual(null, try split.goto(alloc, right, .{ .spatial_no_wrap = .right }));
++
++    // A single pane also permits tab navigation in both directions.
++    try testing.expectEqual(null, try left_tree.goto(alloc, .root, .{ .spatial_no_wrap = .left }));
++    try testing.expectEqual(null, try left_tree.goto(alloc, .root, .{ .spatial_no_wrap = .right }));
++
++    // Callers that request wrapping retain their existing behavior.
++    try testing.expectEqual(right, (try split.goto(alloc, left, .{ .spatial = .left })).?);
++    try testing.expectEqual(left, (try split.goto(alloc, right, .{ .spatial = .right })).?);
++}
++
+ test "SplitTree: spatial goto" {
+     const testing = std.testing;
+     const alloc = testing.allocator;

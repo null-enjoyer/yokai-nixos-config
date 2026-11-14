@@ -1,0 +1,15 @@
+result
+result-*
+*.hm-backup
+.direnv/
+*.tmp
+.update-tools.lock
+.spec/
+.claude/
+.codex/
+*.env
+*.key
+*.pem
+secrets/
+__pycache__/
+*.py[cod]

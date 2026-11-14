@@ -1,0 +1,67 @@
+singleton Theme 1.0 Theme.qml
+singleton Weather 1.0 Weather.qml
+singleton Media 1.0 Media.qml
+HubMenu 1.0 HubMenu.qml
+MediaCard 1.0 MediaCard.qml
+SessionControls 1.0 SessionControls.qml
+singleton LockScreen 1.0 LockScreen.qml
+LockContent 1.0 LockContent.qml
+singleton Desktop 1.0 Desktop.qml
+singleton Compositor 1.0 Compositor.qml
+singleton Switcher 1.0 Switcher.qml
+singleton Audio 1.0 Audio.qml
+singleton NightLight 1.0 NightLight.qml
+singleton NotificationCenter 1.0 NotificationCenter.qml
+NotificationCard 1.0 NotificationCard.qml
+NotificationPane 1.0 NotificationPane.qml
+NotificationMenu 1.0 NotificationMenu.qml
+NotificationPopups 1.0 NotificationPopups.qml
+NightLightMenu 1.0 NightLightMenu.qml
+AudioControl 1.0 AudioControl.qml
+AudioMenu 1.0 AudioMenu.qml
+PanelMenu 1.0 PanelMenu.qml
+AttachedPopup 1.0 AttachedPopup.qml
+MenuAnchor 1.0 MenuAnchor.qml
+DockShape 1.0 DockShape.qml
+RailGroup 1.0 RailGroup.qml
+ApplicationMenu 1.0 ApplicationMenu.qml
+CalendarMenu 1.0 CalendarMenu.qml
+TrayPanel 1.0 TrayPanel.qml
+singleton Tray 1.0 Tray.qml
+WifiMenu 1.0 WifiMenu.qml
+EthernetMenu 1.0 EthernetMenu.qml
+BluetoothMenu 1.0 BluetoothMenu.qml
+RailAudio 1.0 RailAudio.qml
+TextLabel 1.0 TextLabel.qml
+IconButton 1.0 IconButton.qml
+CloseButton 1.0 CloseButton.qml
+Rail 1.0 Rail.qml
+RailOrnament 1.0 RailOrnament.qml
+ControlPanel 1.0 ControlPanel.qml
+FrostPanel 1.0 FrostPanel.qml
+SearchPane 1.0 SearchPane.qml
+WorkspaceOverview 1.0 WorkspaceOverview.qml
+WindowTile 1.0 WindowTile.qml
+DesktopPreview 1.0 DesktopPreview.qml
+WorkspacePreviewMenu 1.0 WorkspacePreviewMenu.qml
+SystemStatus 1.0 SystemStatus.qml
+SystemMetricCard 1.0 SystemMetricCard.qml
+MetricGauge 1.0 MetricGauge.qml
+NetworkGraph 1.0 NetworkGraph.qml
+singleton FolderSearch 1.0 FolderSearch.qml
+singleton BrowserSearch 1.0 BrowserSearch.qml
+singleton TelegramSearch 1.0 TelegramSearch.qml
+TelegramSetup 1.0 TelegramSetup.qml
+singleton Metrics 1.0 Metrics.qml
+singleton NetworkHistory 1.0 NetworkHistory.qml
+singleton Updates 1.0 Updates.qml
+UpdatesMenu 1.0 UpdatesMenu.qml
+UpdateButton 1.0 UpdateButton.qml
+UpdateVersionTable 1.0 UpdateVersionTable.qml
+UpdateHistory 1.0 UpdateHistory.qml
+UpdateSchedule 1.0 UpdateSchedule.qml
+YokaiButton 1.0 YokaiButton.qml
+YokaiSlider 1.0 YokaiSlider.qml
+singleton Clipboard 1.0 Clipboard.qml
+ClipboardPane 1.0 ClipboardPane.qml
+Wallpaper 1.0 Wallpaper.qml
