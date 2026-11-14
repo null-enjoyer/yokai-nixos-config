@@ -1,5 +1,8 @@
 # YŌKAI NixOS
 
+This is an opinionated configuration of my current NixOS system, developed and
+maintained with AI assistance.
+
 An x86_64-linux desktop with Hyprland, the YŌKAI Quickshell shell, Home Manager,
 Zsh and Ghostty. It includes desktop applications, development tools and Steam.
 Application selection is grouped in `apps.nix`. Hardware, identity, VPN,
@@ -10,7 +13,7 @@ physical displays and personal services belong in the consuming host.
 - Modular NixOS and Home Manager configuration, with hardware and personal settings supplied by the host.
 - Hyprland desktop with workspace previews, window switching and keyboard/mouse controls.
 - YŌKAI Quickshell panel with application search, clipboard history, notifications, audio, networking and Bluetooth controls.
-- Brave history search with normalized URLs, plus optional Telegram chat/contact search.
+- Integrated search across Brave browsing history and Telegram chats and contacts.
 - Matching terminal, shell prompt, file manager, login and session-lock themes.
 - A shared wallpaper collection with hourly rotation across the desktop, lock screen and SDDM.
 - Region/full-screen screenshots, annotation, color picking and screen recording.
@@ -93,7 +96,7 @@ Media, weather and session controls.
 
 ![YŌKAI desktop with its menu open](docs/screenshots/desktop-menu.png)
 
-### Control panel
+### Control panel overlay (Super + Space)
 
 Application search, workspace previews and system metrics.
 
