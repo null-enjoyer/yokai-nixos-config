@@ -11,14 +11,21 @@ physical displays and personal services belong in the consuming host.
 ## Features
 
 - Modular NixOS and Home Manager configuration, with hardware and personal settings supplied by the host.
-- Hyprland desktop with workspace previews, window switching and keyboard/mouse controls.
-- YŌKAI Quickshell panel with application search, clipboard history, notifications, audio, networking and Bluetooth controls.
-- Integrated search across Brave browsing history and Telegram chats and contacts.
-- Matching terminal, shell prompt, file manager, login and session-lock themes.
-- A shared wallpaper collection with hourly rotation across the desktop, lock screen and SDDM.
-- Region/full-screen screenshots, annotation, color picking and screen recording.
-- Optional update panel and scheduled system, CLI and Flatpak maintenance.
-- Daily garbage collection and automatic Nix store deduplication.
+- YŌKAI control-panel overlay (`Super + Space`) with search, workspace previews and system metrics.
+- Integrated search across applications, folders, Brave browsing history and Telegram chats and contacts.
+- Fuzzy search that works even when typed in the wrong US/RU keyboard layout.
+- Searchable clipboard history with text and image previews. Pinned entries survive history cleanup.
+- Custom window dragging: `Super + LMB` drops windows back into tiling, while `Super + Shift + LMB` leaves them floating where dropped.
+- Workspace previews and an `Alt + Tab` window switcher with directional keyboard navigation.
+- Audio, microphone, Wi-Fi, Ethernet and Bluetooth controls.
+- Notification history and do-not-disturb mode.
+- Media controls, calendar, weather and scheduled night light.
+- CPU/GPU, memory and storage metrics, plus network traffic history.
+- PAM session lock and matching terminal, shell, file manager, login and lock-screen themes.
+- Shared wallpapers with hourly rotation across the desktop, lock screen and SDDM.
+- Region/full-screen screenshots, annotation, color picking and region recording.
+- Optional system, CLI and Flatpak update controls with update history and configurable schedules.
+- Automatic Nix store deduplication and scheduled garbage collection.
 
 ## Build the example
 
