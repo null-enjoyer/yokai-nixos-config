@@ -11,4 +11,4 @@ jobs:
       # Materialize Hyprland's filtered source before the read-only flake check.
       - run: nix eval --raw .#nixosConfigurations.example.config.system.build.toplevel.drvPath --no-write-lock-file
       - run: nix flake check --no-build --no-write-lock-file
-      - run: nix build .#checks.x86_64-linux.scripts --no-link --no-write-lock-file
+      - run: nix build .#checks.x86_64-linux.scripts .#checks.x86_64-linux.lan-drop --no-link --no-write-lock-file

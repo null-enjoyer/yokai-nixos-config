@@ -24,6 +24,7 @@ physical displays and personal services belong in the consuming host.
 - PAM session lock and matching terminal, shell, file manager, login and lock-screen themes.
 - Shared wallpapers with hourly rotation across the desktop, lock screen and SDDM.
 - Region/full-screen screenshots, annotation, color picking and region recording.
+- Optional LAN file uploads and shared text synchronization through a browser, with QR access.
 - Optional system, CLI and Flatpak update controls with update history and configurable schedules.
 - Automatic Nix store deduplication and scheduled garbage collection.
 
@@ -32,7 +33,7 @@ physical displays and personal services belong in the consuming host.
 ```sh
 nix eval --raw .#nixosConfigurations.example.config.system.build.toplevel.drvPath --no-write-lock-file
 nix flake check --no-build --no-write-lock-file
-nix build .#checks.x86_64-linux.scripts --no-link --no-write-lock-file
+nix build .#checks.x86_64-linux.scripts .#checks.x86_64-linux.lan-drop --no-link --no-write-lock-file
 nix build .#nixosConfigurations.example.config.system.build.toplevel
 ```
 
@@ -91,9 +92,32 @@ Select Flathub applications with `desktop.flatpak.packages`. Removal is manual,
 and their versions are independent of `flake.lock`. If installation fails, restore
 connectivity and run `sudo systemctl restart flatpak-install-apps`.
 
-Separate exports: `nixosModules.flatpak`, `nixosModules.updates` and
+Separate exports: `nixosModules.flatpak`, `nixosModules.updates`, `nixosModules.lan-drop` and
 `overlays.default`. The `default` module exports alias `desktop`.
 See the [YŌKAI guide](config/yokai/README.md) for integrations and development.
+
+## LAN transfer
+
+LAN Drop provides browser uploads and a shared text field for devices on the same
+network. Enable it in the consuming host configuration with your own LAN settings:
+
+```nix
+services.lan-drop = {
+  enable = true;
+  user = "demo";
+  listenAddress = "192.168.50.10";
+  allowedNetwork = "192.168.50.0/24";
+  interface = "enp1s0";
+};
+```
+
+Run `lan-drop` to display the page URL and QR code. Uploads go to the user's
+`Downloads` directory, configurable with `downloadsDirectory`. Existing files are
+preserved. Each file can be up to 1 GiB.
+
+There are no accounts or access codes. Devices in the allowed subnet can upload
+files and read or edit the shared text. The module opens port 8765 on the selected
+interface only. Change it with `services.lan-drop.port`.
 
 ## Screenshots
 

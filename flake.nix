@@ -36,6 +36,7 @@
         };
         flatpak = ./modules/nixos/flatpak.nix;
         updates = ./modules/nixos/updates.nix;
+        lan-drop = ./modules/nixos/lan-drop.nix;
       };
 
       homeManagerModules = {
@@ -60,6 +61,12 @@
       };
 
       checks.${system} = {
+        lan-drop = pkgs.runCommand "lan-drop-checks" {
+          nativeBuildInputs = [ pkgs.python3 pkgs.qrencode ];
+        } ''
+          python3 ${./tests/lan-drop.py} ${./config/lan-drop}/server.py
+          touch "$out"
+        '';
         scripts = pkgs.runCommand "desktop-script-checks" {
           nativeBuildInputs = with pkgs; [ bash (python3.withPackages (packages: [ packages.pillow ])) nodejs_22 coreutils jq gnused gnugrep gawk util-linux ];
         } ''
