@@ -35,7 +35,7 @@ class Storage:
 
     def update_note(self, data):
         if not isinstance(data.get('text'), str) or len(data['text'].encode()) > MAX_TEXT:
-            raise ValueError('Текст слишком большой')
+            raise ValueError('Text is too large')
         with self.lock:
             if data.get('version') != self.note['version']:
                 return False, dict(self.note)
@@ -50,9 +50,9 @@ class Storage:
 
     def upload(self, name, stream, length):
         if not name or name in ('.', '..') or Path(name).name != name or '\\' in name or any(ord(c) < 32 for c in name) or len(name.encode()) > 220:
-            raise ValueError('Недопустимое имя файла')
+            raise ValueError('Invalid file name')
         if not 0 <= length <= MAX_FILE:
-            raise ValueError('Максимальный размер файла — 1 ГиБ')
+            raise ValueError('Maximum file size is 1 GiB')
         fd, temporary = tempfile.mkstemp(prefix='.lan-drop-', suffix='.part', dir=self.downloads)
         temporary = Path(temporary)
         try:
@@ -61,7 +61,7 @@ class Storage:
                 while remaining:
                     block = stream.read(min(1024 * 1024, remaining))
                     if not block:
-                        raise ValueError('Передача прервана')
+                        raise ValueError('Transfer interrupted')
                     output.write(block)
                     remaining -= len(block)
             original = Path(name)
@@ -72,7 +72,7 @@ class Storage:
                     return {'name': candidate.name, 'size': length}
                 except FileExistsError:
                     continue
-            raise ValueError('Слишком много файлов с таким именем')
+            raise ValueError('Too many files with this name')
         finally:
             temporary.unlink(missing_ok=True)
 
@@ -100,12 +100,12 @@ class Handler(BaseHTTPRequestHandler):
     def allowed(self):
         address = ipaddress.ip_address(self.client_address[0])
         if not (address.is_loopback or address in self.server.network):
-            self.reply(403, {'error': 'Доступ только из локальной сети'})
+            self.reply(403, {'error': 'Access is restricted to the local network'})
             return False
         host = self.headers.get('Host', '')
         origin = self.headers.get('Origin')
         if host not in self.server.hosts or origin and origin != 'http://' + host:
-            self.reply(403, {'error': 'Недопустимый адрес страницы'})
+            self.reply(403, {'error': 'Invalid page address'})
             return False
         return True
 
@@ -123,7 +123,7 @@ class Handler(BaseHTTPRequestHandler):
             with self.server.storage.lock:
                 self.reply(200, self.server.storage.note)
         else:
-            self.reply(404, {'error': 'Не найдено'})
+            self.reply(404, {'error': 'Not found'})
 
     def do_PUT(self):
         path = urlsplit(self.path)
@@ -137,14 +137,14 @@ class Handler(BaseHTTPRequestHandler):
                 self.reply(201, self.server.storage.upload(name, self.rfile, length))
             elif path.path == '/api/note':
                 if not 0 <= length <= MAX_TEXT + 8192:
-                    raise ValueError('Текст слишком большой')
+                    raise ValueError('Text is too large')
                 data = json.loads(self.rfile.read(length))
                 if not isinstance(data, dict):
-                    raise ValueError('Недопустимый текст')
+                    raise ValueError('Invalid text')
                 success, note = self.server.storage.update_note(data)
                 self.reply(200 if success else 409, note)
             else:
-                self.reply(404, {'error': 'Не найдено'})
+                self.reply(404, {'error': 'Not found'})
         except (ValueError, KeyError, OSError) as error:
             self.reply(400, {'error': str(error)})
 
