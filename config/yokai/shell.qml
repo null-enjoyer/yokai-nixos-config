@@ -17,6 +17,7 @@ ShellRoot {
     Variants { model: Theme.railScreens; delegate: Rail { required property var modelData; screen: modelData } }
     ControlPanel {}
     TelegramSetup {}
+    BreakReminderPopup {}
     NotificationPopups {}
     Variants {
         model: Theme.development ? [] : Quickshell.screens

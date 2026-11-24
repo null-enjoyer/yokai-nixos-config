@@ -54,6 +54,21 @@ files in the same packaged directory. Both receive `theme` and provide their own
 The update panel is opt-in through `desktop.yokai.updates.enable` and requires the
 [host update integration](../../README.md#update). Operations survive closing the shell.
 
+## Move reminders
+
+Left-click the stretching-person icon on the rail to toggle reminders. Right-click for the
+interval, application exclusions and a preview. Reminders appear in the center
+without taking keyboard focus and can be dismissed or postponed for five minutes.
+
+Exclusions use application classes and support `*` and `?` wildcards. Use **Add**
+to include the focused app, then **Save settings**. Reminders pause while a matching
+app is open or the session is locked. A fresh interval starts afterwards. Screenshots
+temporarily defer the popup without restarting its interval. Unanswered reminders
+disappear after 20 seconds.
+
+Defaults live in `desktop.yokai.breakReminder`. Saved menu settings override them.
+Reminders are off by default, with a 45-minute interval.
+
 ## Appearance and development
 
 Colors: `Theme.qml` and `../ghostty/config`. Backgrounds: repository `wallpapers/`.

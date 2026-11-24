@@ -20,6 +20,7 @@ physical displays and personal services belong in the consuming host.
 - Audio, microphone, Wi-Fi, Ethernet and Bluetooth controls.
 - Notification history and do-not-disturb mode.
 - Media controls, calendar, weather and scheduled night light.
+- Centered movement reminders with configurable intervals, snoozing and application exclusions.
 - CPU/GPU, memory and storage metrics, plus network traffic history.
 - PAM session lock and matching terminal, shell, file manager, login and lock-screen themes.
 - Shared wallpapers with hourly rotation across the desktop, lock screen and SDDM.

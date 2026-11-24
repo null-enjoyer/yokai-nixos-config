@@ -77,9 +77,11 @@
           python3 ${./tests/browser-search.py} --script ${./config/yokai/scripts/browser_bridge.py}
           python3 ${./tests/telegram-search.py} --script ${./config/yokai/scripts}/telegram_search.py
           python3 ${./tests/system-updates.py} --script ${./scripts/yokai-updates.py}
+          python3 ${./tests/break-reminder.py} ${./config/yokai/scripts/break-reminder.py}
           node ${./tests/browser-extension.js} --source ${./config/yokai/browser-extension/background.js}
           node ${./tests/search-ranking.js} --source ${./config/yokai/Fuzzy.js}
           node ${./tests/update-status.js} --source ${./config/yokai/UpdateStatus.js}
+          node ${./tests/break-reminder.js} ${./config/yokai/BreakReminderLogic.js}
           touch "$out"
         '';
         # Forces module assertions and generation of the complete example config.

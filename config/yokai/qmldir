@@ -65,3 +65,6 @@ YokaiSlider 1.0 YokaiSlider.qml
 singleton Clipboard 1.0 Clipboard.qml
 ClipboardPane 1.0 ClipboardPane.qml
 Wallpaper 1.0 Wallpaper.qml
+singleton BreakReminder 1.0 BreakReminder.qml
+BreakReminderMenu 1.0 BreakReminderMenu.qml
+BreakReminderPopup 1.0 BreakReminderPopup.qml

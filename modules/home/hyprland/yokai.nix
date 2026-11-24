@@ -29,6 +29,11 @@ in {
     launcherKey = lib.mkOption { type = lib.types.str; default = "SUPER + space"; description = "Keyboard shortcut for control-panel search."; };
     showActiveEmpty = lib.mkOption { type = lib.types.bool; default = true; description = "Keep the focused empty workspace visible until leaving it."; };
     folderRoots = lib.mkOption { type = lib.types.listOf lib.types.str; default = [ config.home.homeDirectory ]; description = "Roots searched for folders in the control panel."; };
+    breakReminder = {
+      enabled = lib.mkOption { type = lib.types.bool; default = false; description = "Initial movement-reminder state. Saved menu settings take precedence."; };
+      intervalMinutes = lib.mkOption { type = lib.types.ints.between 1 1440; default = 45; description = "Initial interval between movement reminders, in minutes."; };
+      excludedApps = lib.mkOption { type = lib.types.listOf lib.types.str; default = [ ]; description = "Initial list of application classes or wildcard patterns that pause reminders while open."; };
+    };
     audioWidget = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = null;
@@ -52,6 +57,7 @@ in {
       Service = {
         ExecStart = "${pkgs.yokai-shell}/bin/yokai-shell run";
         Environment = [ "YOKAI_RAIL_WIDTH=${toString shell.railWidth}" (lib.escapeShellArg "YOKAI_RAIL_EXCLUDED_OUTPUTS=${builtins.toJSON shell.railExcludedOutputs}") "YOKAI_SHOW_ACTIVE_EMPTY=${if shell.showActiveEmpty then "1" else "0"}" "YOKAI_TELEGRAM_ENABLED=${if shell.telegram.enable then "1" else "0"}" "YOKAI_UPDATES_ENABLED=${if shell.updates.enable then "1" else "0"}" (lib.escapeShellArg "YOKAI_FOLDER_ROOTS=${builtins.toJSON shell.folderRoots}") ]
+          ++ [ (lib.escapeShellArg "YOKAI_BREAK_REMINDER_DEFAULTS=${builtins.toJSON shell.breakReminder}") ]
           ++ lib.optionals (shell.audioWidget != null) [
             (lib.escapeShellArg "YOKAI_AUDIO_WIDGET=${shell.audioWidget}")
           ]

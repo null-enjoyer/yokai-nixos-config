@@ -108,7 +108,7 @@ PanelWindow {
         notificationClose.stop();
         workspacePreviewOpen.stop();
         workspacePreviewClose.stop();
-        for (const other of [hostNetworkMenu, hubMenu, updatesMenu, outputMenu, inputMenu, hostAudioMenu, wifiMenu, ethernetMenu, bluetoothMenu, trayPopup, calendarPopup, nightMenu, notificationMenu, workspacePreview]) {
+        for (const other of [hostNetworkMenu, hubMenu, updatesMenu, outputMenu, inputMenu, hostAudioMenu, wifiMenu, ethernetMenu, bluetoothMenu, trayPopup, calendarPopup, nightMenu, breakMenu, notificationMenu, workspacePreview]) {
             if (other !== menu) other.closeReveal(true);
         }
         positionMenu(menu, group);
@@ -260,6 +260,12 @@ PanelWindow {
         id: nightMenu
         anchor.window: root
         anchor.rect.x: root.width - root.groupMargin - 2
+    }
+    BreakReminderMenu {
+        id: breakMenu
+        anchor.window: root
+        anchor.rect.x: root.width - root.groupMargin - 2
+        onHeightChanged: if (visible) root.positionMenu(breakMenu, breakGroup)
     }
     NotificationMenu {
         id: notificationMenu
@@ -483,6 +489,21 @@ PanelWindow {
                 iconColor: Theme.ivory
                 onClicked: if (!NightLight.busy) NightLight.toggle()
                 onContextMenuRequested: root.showMenu(nightMenu, nightGroup)
+            }
+        }
+        RailGroup {
+            id: breakGroup
+            Layout.fillWidth: true
+            joined: breakMenu.visible
+            IconButton {
+                objectName: "yokai-break-reminder-button"
+                Layout.fillWidth: true
+                iconSource: Qt.resolvedUrl("assets/stretch-symbolic.svg")
+                iconSize: Theme.railIconSize
+                iconColor: BreakReminder.enabled ? Theme.ivory : Theme.muted
+                tooltip: "Move reminders: " + (BreakReminder.enabled ? "on" : "off") + ". Right-click for settings."
+                onClicked: if (BreakReminder.ready && !BreakReminder.busy) BreakReminder.toggle()
+                onContextMenuRequested: root.showMenu(breakMenu, breakGroup)
             }
         }
         RailGroup {
